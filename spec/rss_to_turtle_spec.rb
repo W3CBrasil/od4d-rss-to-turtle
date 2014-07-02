@@ -26,6 +26,7 @@ describe RSSToTurtle do
 
     let(:url) {'http://webfoundation.org/feed/'}
     it "should convert a feed from webfoundation to turtle" do 
-        expect{puts RSSToTurtle.convert_from_url(url)}.not_to raise_error
+        expect{RSSToTurtle.convert_from_url(url)}.not_to raise_error
+        expect(RSSToTurtle.convert_from_url(url)).not_to be_empty
     end
 end

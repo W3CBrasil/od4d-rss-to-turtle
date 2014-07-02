@@ -1,13 +1,6 @@
 require 'rss'
 require 'open-uri'
+require 'rss_to_turtle'
 
 url = 'http://webfoundation.org/feed/'
-open(url) do |rss|
-    feed = RSS::Parser.parse(rss)
-    puts "Title: #{feed.channel.title}"
-    feed.items.each do |item|
-        puts "Item: #{item.title}"
-    end
-    puts feed.items[0].inspect
-end
-
+puts RSSToTurtle.convert_from_url(url)

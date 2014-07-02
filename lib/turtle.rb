@@ -39,15 +39,18 @@ class Turtle
 
   def add_triple_to_graph(graph, resourceUri, key, object)
     predicate = RDF::SCHEMA.send(key)
-    raise "Empty resource" if resourceUri.nil?
-    raise "Empty key, for object #{object}" if key.nil? || key.empty?
-    raise "Empty object, for key #{key}" if object.nil? || object.empty?
-
+    triple_check(resourceUri, key, object)
     if str_is_uri?(object) then
       graph << [resourceUri, predicate, RDF::URI.new(object) ]
     else
       graph << [resourceUri, predicate, object ]
     end
+  end
+
+  def triple_check(resourceUri, key, object)
+    raise "Empty resource" if resourceUri.nil?
+    raise "Empty key, for object #{object}" if key.nil? || key.to_s.empty?
+    raise "Empty object, for key #{key}" if object.nil? || object.to_s.empty?
   end
 
   def str_is_uri?(str)

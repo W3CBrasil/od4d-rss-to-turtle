@@ -3,6 +3,7 @@ require 'articles_factory'
 require 'resource'
 require 'turtle'
 require 'rss'
+require 'open-uri'
 
 class RSSToTurtle
   def self.convert(rss_str)
@@ -22,5 +23,10 @@ class RSSToTurtle
     end
 
     turtle.to_s
+  end
+
+  def self.convert_from_url(url)
+    page_feed = open(url).read
+    self.convert(page_feed)
   end
 end

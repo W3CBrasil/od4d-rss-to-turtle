@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name        = 'rss_to_turtle'
+  s.name        = 'rss-to-turtle'
   s.version     = "0.0.1"
   s.version     = "#{s.version}.#{ENV['SNAP_PIPELINE_COUNTER']}" if ENV['SNAP_CI'] == "true"
   s.date        = Date.today.to_s

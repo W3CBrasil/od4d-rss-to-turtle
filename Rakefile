@@ -9,7 +9,7 @@ namespace :gem do
 
   desc "Remove old gem files"
   task :clean do
-    sh "rm rss_to_turtle*.gem"
+    sh "rm -f rss_to_turtle*.gem"
   end
 
   desc "Build gem file"

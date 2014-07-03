@@ -10,4 +10,7 @@ Gem::Specification.new do |s|
   s.executables = 'fetch-and-load-articles'
   s.homepage    = 'https://github.com/W3CBrasil/od4d-rss-to-turtle'
   s.license     = 'MIT'
+
+  s.add_dependency 'rdf-turtle', '~> 1.1', '>= 1.1.4'
+
 end

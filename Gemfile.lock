@@ -1,3 +1,9 @@
+PATH
+  remote: .
+  specs:
+    rss_to_turtle (0.0.1)
+      rdf-turtle (~> 1.1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -49,7 +55,6 @@ DEPENDENCIES
   fuubar (~> 2.0.0.rc1)
   pry
   rake
-  rdf
-  rdf-turtle
   rspec
   rspec-its
+  rss_to_turtle!

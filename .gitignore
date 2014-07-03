@@ -1,5 +1,6 @@
 tmp
 .DS_Store
+/output
 
 ### Vim ###
 [._]*.s[a-w][a-z]

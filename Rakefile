@@ -4,7 +4,6 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :default => :spec
 
-
 namespace :gem do
 
   desc "Remove old gem files"
@@ -29,4 +28,15 @@ namespace :gem do
     sh "sudo gem install output/rss-to-turtle*.gem"
   end
 
+end
+
+desc "Deploy application to production server"
+task :deploy do
+  command = <<-eos
+    cd /tmp && gem install rss-to-turtle --install-dir ~/.gem
+    crontab -l | grep -v fetch-and-load-articles | { cat; echo "*/30 * * * * fetch-and-load-articles"; } | crontab -
+  eos
+
+  sh "scp output/rss-to-turtle*.gem od4d@#{ENV['OD4D_PROD_SERVER']}:/tmp"
+  sh "ssh od4d@#{ENV['OD4D_PROD_SERVER']} '#{command}'"
 end

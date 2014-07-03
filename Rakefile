@@ -9,22 +9,22 @@ namespace :gem do
 
   desc "Remove old gem files"
   task :clean do
-    sh "rm -f rss_to_turtle*.gem"
+    sh "rm -f rss-to-turtle*.gem"
   end
 
   desc "Build gem file"
   task :build => :clean do
-    sh "gem build rss_to_turtle.gemspec"
+    sh "gem build rss-to-turtle.gemspec"
   end
 
   desc "Uninstall gem"
   task :uninstall do
-    sh "sudo gem uninstall rss_to_turtle"
+    sh "sudo gem uninstall rss-to-turtle"
   end
 
   desc "Install gem"
   task :install => [:uninstall, :build] do
-    sh "sudo gem install rss_to_turtle*.gem"
+    sh "sudo gem install rss-to-turtle*.gem"
   end
 
 end

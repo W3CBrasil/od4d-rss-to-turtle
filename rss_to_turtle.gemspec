@@ -7,7 +7,8 @@ Gem::Specification.new do |s|
   s.description = "RSS RDF to turtle converter, using http://schema.org/Article vocabulary."
   s.authors     = ["W3CBrasil", "Yasodara Cordova", "Jean Kirchner", "Marcelo Vargas", "Marcus Rodrigues", "Rafael Magrin"]
   s.email       = 'w3c-od4d@thoughtworks.com'
-  s.files       = Dir["lib/*"]
+  s.files       = Dir["lib/*"] + Dir["bin/*"]
+  s.executables = 'fetch-and-load-articles'
   s.homepage    = 'https://github.com/W3CBrasil/od4d-rss-to-turtle'
-  s.license     = '?'
+  s.license     = 'MIT'
 end

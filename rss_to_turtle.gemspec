@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'rss_to_turtle'
-  s.version     = "0.0.0"
+  s.version     = "0.0.1"
   s.version     = "#{s.version}.#{ENV['SNAP_PIPELINE_COUNTER']}" if ENV['SNAP'] == "true"
   s.date        = Date.today.to_s
   s.summary     = "RSS RDF to turtle converter, using http://schema.org/Article vocabulary."

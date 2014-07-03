@@ -33,8 +33,10 @@ end
 desc "Deploy application to production server"
 task :deploy do
   command = <<-eos
-    cd /tmp && gem install rss-to-turtle --install-dir ~/.gem
+    cd /tmp
+    gem install rss-to-turtle --install-dir ~/.gem
     crontab -l | grep -v fetch-and-load-articles | { cat; echo "*/30 * * * * fetch-and-load-articles"; } | crontab -
+    rm rss-to-turtle*.gem
   eos
 
   sh "scp output/rss-to-turtle*.gem od4d@#{ENV['OD4D_PROD_SERVER']}:/tmp"

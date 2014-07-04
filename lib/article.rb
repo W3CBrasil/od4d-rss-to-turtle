@@ -19,16 +19,21 @@ class Article
   
   alias_method :uri, :url
 
-  def to_resource
-    Resource.new(uri, "Article")
-      .add_property("headline", @title)
-      .add_property("url", @url)
-      .add_property("description", @description)
-      .add_property("inLanguage", @language)
-      .add_property("author", @author)
-      .add_property("datePublished", @datePublished)
-      .add_property("articleBody", @articleBody)
-      .add_property("articleSection", @articleSection)
+  def add_optional_to_resource(res, field_name, field_value)
+    res.add_property(field_name, field_value) unless field_value.to_s.empty?
   end
 
+  def to_resource
+    res = Resource.new(uri, "Article")
+    add_optional_to_resource(res, "headline", @title)
+    add_optional_to_resource(res, "uri", @uri)
+    add_optional_to_resource(res, "url", @url)
+    add_optional_to_resource(res, "description", @description)
+    add_optional_to_resource(res, "inLanguage", @language)
+    add_optional_to_resource(res, "author", @author)
+    add_optional_to_resource(res, "datePublished", @datePublished)
+    add_optional_to_resource(res, "articleBody", @articleBody)
+    add_optional_to_resource(res, "articleSection", @articleSection)
+    res
+  end
 end

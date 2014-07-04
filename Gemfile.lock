@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    rss_to_turtle (0.0.1)
-      rdf-turtle (~> 1.1.4)
+    rss-to-turtle (0.0.1)
+      rdf-turtle (~> 1.1, >= 1.1.4)
 
 GEM
   remote: https://rubygems.org/
@@ -57,4 +57,4 @@ DEPENDENCIES
   rake
   rspec
   rspec-its
-  rss_to_turtle!
+  rss-to-turtle!

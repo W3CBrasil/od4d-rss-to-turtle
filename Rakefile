@@ -32,13 +32,15 @@ end
 
 desc "Deploy application to production server"
 task :deploy do
+  cron_job = "*/30 * * * * sh -c '. ~/.bashrc && fetch-and-load-articles' >> /var/log/od4d/fetch-and-load-articles.log 2>&1"
   command = <<-eos
     cd /tmp
+    gem uninstall -x rss-to-turtle
     gem install rss-to-turtle --install-dir ~/.gem
-    crontab -l | grep -v fetch-and-load-articles | { cat; echo "*/30 * * * * fetch-and-load-articles"; } | crontab -
+    crontab -l | grep -v fetch-and-load-articles | { cat; echo \\"#{cron_job}\\"; } | crontab -
     rm rss-to-turtle*.gem
   eos
 
   sh "scp output/rss-to-turtle*.gem od4d@#{ENV['OD4D_PROD_SERVER']}:/tmp"
-  sh "ssh od4d@#{ENV['OD4D_PROD_SERVER']} '#{command}'"
+  sh "ssh od4d@#{ENV['OD4D_PROD_SERVER']} \"#{command}\""
 end

@@ -3,12 +3,17 @@
 require 'net/http'
 require 'rss_to_turtle'
 
+def log(type, message)
+  output = type == :error ? $stderr : $stdout
+  output.puts "#{Time.now.utc.iso8601} - #{type.upcase}: #{message}"
+end
+
 feed_url = URI('http://webfoundation.org/feed/')
 
-puts "Converting rss to turtle"
+log(:info, "Converting rss to turtle")
 turtle = RSSToTurtle.convert_from_url(feed_url)
 
-puts "Loading data in to semantic repository"
+log(:info, "Loading data in to semantic repository")
 
 host = 'localhost'
 port = '3030'
@@ -24,7 +29,8 @@ request.body = turtle
 response = Net::HTTP.new(host, port).start {|http| http.request(request) }
 
 if response.kind_of? Net::HTTPSuccess
-  puts "Data loaded successfully."
+  log(:info, "Data loaded successfully.")
 else
-  puts "Failed to load data: #{response.code}"
+  log(:error, "Failed to load data: #{response.code}")
+  exit 1
 end

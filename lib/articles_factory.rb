@@ -16,7 +16,7 @@ class ArticlesFactory
   private
 
   def gather_required_properties(article, rss_item)
-    article.title = strip_prop(rss_item.title)
+    article.title = strip_html(strip_prop(rss_item.title))
     article.description  = strip_html(strip_prop(rss_item.description))
   end
 

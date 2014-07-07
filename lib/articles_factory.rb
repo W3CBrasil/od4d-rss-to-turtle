@@ -28,12 +28,12 @@ class ArticlesFactory
   end
 
   def get_item_prop(prop)
-    prop.to_s.strip unless prop.nil?
+    prop.to_s.strip
   end
 
   def get_date(date, rss_version)
     striped_date = get_item_prop(date)
-    if !striped_date.nil?
+    if !striped_date.empty?
       rss_version == "2.0" ? DateTime.rfc2822(striped_date) : DateTime.iso8601(striped_date)
     end
   end

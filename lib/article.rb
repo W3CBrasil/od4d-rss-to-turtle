@@ -16,7 +16,7 @@ class Article
     @articleBody = options[:articleBody]
     @articleSection = options[:articleSection]
   end
-  
+
   alias_method :uri, :url
 
   def add_optional_to_resource(res, field_name, field_value)
@@ -31,7 +31,7 @@ class Article
     add_optional_to_resource(res, "description", @description)
     add_optional_to_resource(res, "inLanguage", @language)
     add_optional_to_resource(res, "author", @author)
-    add_optional_to_resource(res, "datePublished", @datePublished)
+    add_optional_to_resource(res, "datePublished", (@datePublished.iso8601() unless @datePublished.nil?))
     add_optional_to_resource(res, "articleBody", @articleBody)
     add_optional_to_resource(res, "articleSection", @articleSection)
     res

@@ -107,6 +107,10 @@ describe ArticlesFactory do
         expect(article.articleBody).to eq('Um teste muito legal :D')
       end
 
+      it 'should set the article datePublished' do
+        expect(article.datePublished).to eq(DateTime.new(2014,6,26,17,57,45,'+00:00'))
+      end
+
     end
 
   end

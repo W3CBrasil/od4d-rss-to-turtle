@@ -25,7 +25,7 @@ namespace :gem do
 
   desc "Install gem"
   task :install => [:uninstall, :build] do
-    sh "sudo gem install --local output/rss-to-turtle*.gem"
+    sh "sudo gem install output/rss-to-turtle*.gem"
   end
 
 end

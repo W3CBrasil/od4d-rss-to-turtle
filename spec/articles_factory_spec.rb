@@ -103,7 +103,7 @@ describe ArticlesFactory do
       end
 
       it 'should set the article description' do
-        expect(article.description).to eq('<p>The World Wide Web Foundation is pleased to announce the <a href="http://ocds.open-contracting.org/standard/">first release of the Open Contracting Data Standard (OCDS)</a>, which aims to enhance and promote disclosure and participation in public contracting, for broad consultation. In this release, we present &#8230;</p>')
+        expect(article.description).to eq('The World Wide Web Foundation is pleased to announce the first release of the Open Contracting Data Standard (OCDS), which aims to enhance and promote disclosure and participation in public contracting, for broad consultation. In this release, we present &#8230;')
       end
 
       it 'should set the article articleBody' do

@@ -6,7 +6,7 @@ class ArticlesFactory
     rss.items.map do |item|
       article = Article.new(get_item_prop(item.link))
       gather_required_properties(article, item)
-      gather_optional_properties(article, item)
+      gather_optional_properties(article, item, rss.rss_version)
       articles.push(article)
     end
     articles
@@ -19,24 +19,23 @@ class ArticlesFactory
     article.description  = get_item_prop(rss_item.description)
   end
 
-  def gather_optional_properties(article, rss_item)
-    article.datePublished = get_date(rss_item.pubDate) if rss_item.respond_to?(:pubDate)
-    article.author = get_item_prop(rss_item.dc_creator) if rss_item.respond_to?(:dc_creator)
-    article.articleBody = get_item_prop(rss_item.content_encoded) if rss_item.respond_to?(:content_encoded)
+  def gather_optional_properties(article, rss_item, rss_version)
+    article.datePublished = get_date(rss_item.date, rss_version)
+    article.author = get_item_prop(rss_item.dc_creator)
+    article.articleBody = get_item_prop(rss_item.content_encoded)
     article.articleSection = rss_item.category if rss_item.respond_to?(:category)
-    article.language = get_item_prop(rss_item.dc_language) if rss_item.respond_to?(:dc_language)
+    article.language = get_item_prop(rss_item.dc_language)
   end
 
   def get_item_prop(prop)
-    if (prop != nil) then
-        prop = prop.to_s.strip
-    end
-    prop
+    prop.to_s.strip unless prop.nil?
   end
 
-  def get_date(prop)
-    striped_prop = get_item_prop(prop)
-    DateTime.rfc2822(striped_prop) if !striped_prop.nil?
+  def get_date(date, rss_version)
+    striped_date = get_item_prop(date)
+    if !striped_date.nil?
+      rss_version == "2.0" ? DateTime.rfc2822(striped_date) : DateTime.iso8601(striped_date)
+    end
   end
 
 end

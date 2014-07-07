@@ -20,11 +20,11 @@ class ArticlesFactory
   end
 
   def gather_optional_properties(article, rss_item)
-    article.datePublished = get_date(rss_item.pubDate)
-    article.author = get_item_prop(rss_item.dc_creator)
-    article.articleBody = get_item_prop(rss_item.content_encoded)
-    article.articleSection = get_item_prop(rss_item.category)
-    article.language = get_item_prop(rss_item.dc_language)
+    article.datePublished = get_date(rss_item.pubDate) if rss_item.respond_to?(:pubDate)
+    article.author = get_item_prop(rss_item.dc_creator) if rss_item.respond_to?(:dc_creator)
+    article.articleBody = get_item_prop(rss_item.content_encoded) if rss_item.respond_to?(:content_encoded)
+    article.articleSection = rss_item.category if rss_item.respond_to?(:category)
+    article.language = get_item_prop(rss_item.dc_language) if rss_item.respond_to?(:dc_language)
   end
 
   def get_item_prop(prop)

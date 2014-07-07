@@ -1,4 +1,5 @@
 require 'article'
+require 'htmlentities'
 
 class ArticlesFactory
   def create(rss)
@@ -23,8 +24,19 @@ class ArticlesFactory
     article.datePublished = get_date(rss_item.date, rss_version)
     article.author = strip_prop(rss_item.dc_creator)
     article.articleBody = strip_html(strip_prop(rss_item.content_encoded))
-    article.articleSection = rss_item.category if rss_item.respond_to?(:category)
+    article.articleSection = get_category(rss_item)
     article.language = strip_prop(rss_item.dc_language)
+  end
+
+  def get_category(rss_item)
+    if rss_item.respond_to?(:categories) then
+        categories = rss_item.categories.map do |cat|
+            cat.content
+        end
+        categories.join(",")
+    else
+        ""
+    end
   end
 
   def strip_prop(prop)
@@ -34,7 +46,11 @@ class ArticlesFactory
   def strip_html(str)
     re = /<("[^"]*"|'[^']*'|[^'">])*>/
     str.gsub!(re, '')
-    str
+    replace_html_codes(str)
+  end
+
+  def replace_html_codes(str)
+    return HTMLEntities.new.decode(str)
   end
 
   def get_date(date, rss_version)

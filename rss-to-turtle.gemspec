@@ -12,5 +12,6 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.add_dependency 'rdf-turtle', '~> 1.1', '>= 1.1.4'
+  s.add_dependency 'htmlentities', '~> 4.3.2'
 
 end

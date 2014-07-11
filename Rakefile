@@ -39,6 +39,7 @@ task :deploy do
     gem install rss-to-turtle --install-dir ~/.gem
     crontab -l | grep -v fetch-and-load-articles | { cat; echo \\"#{cron_job}\\"; } | crontab -
     rm rss-to-turtle*.gem
+    fetch-and-load-articles
   eos
 
   sh "scp output/rss-to-turtle*.gem od4d@#{ENV['OD4D_PROD_SERVER']}:/tmp"

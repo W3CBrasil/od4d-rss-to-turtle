@@ -33,6 +33,7 @@ end
 namespace :deploy do
 
   def deploy(server)
+    configure_deploy_ssh_key(server)
     cron_job = "*/30 * * * * sh -c '. ~/.bashrc && fetch-and-load-articles' >> /var/log/od4d/fetch-and-load-articles.log 2>&1"
     command = <<-eos
       cd /tmp
@@ -45,6 +46,15 @@ namespace :deploy do
 
     sh "scp output/rss-to-turtle*.gem od4d@#{server}:/tmp"
     sh "ssh od4d@#{server} \"#{command}\""
+  end
+
+  def configure_deploy_ssh_key(server)
+    command = <<-eos
+      echo "$DEPLOY_SSH_KEY" > ~/.ssh/deploy-key
+      chmod 0600 ~/.ssh/deploy-key
+      printf "\nHost #{server}\nUserKnownHostsFile /dev/null\nIdentityFile ~/.ssh/deploy-key\n" >> $HOME/.ssh/config
+    eos
+    sh command if ENV['CI']
   end
 
   desc "Deploy to localhost"

@@ -9,32 +9,41 @@ def log(type, message)
 end
 
 def fetch_and_load_feed(feed_url)
-    begin
-        log(:info, "Converting rss #{feed_url} to turtle")
-        turtle = RSSToTurtle.convert_from_url(feed_url)
-
-        log(:info, "Loading data in to semantic repository")
-
-        host = 'localhost'
-        port = '3030'
-        path = '/articles/data?default'
-
-        headers = {}
-        headers["Content-Type"] = "text/turtle;charset=utf-8;charset=utf-8"
-
-        request = Net::HTTP::Post.new(path)
-        request.initialize_http_header(headers)
-        request.body = turtle
-        response = Net::HTTP.new(host, port).start {|http| http.request(request) }
-
-        if response.kind_of? Net::HTTPSuccess
-          log(:info, "Data loaded successfully.")
-        else
-          log(:error, "Failed to load data: #{response.code}")
-        end
+  begin
+    log(:info, "Converting rss #{feed_url} to turtle")
+    turtle = RSSToTurtle.convert_from_url(feed_url)
+    put_data_on_fuseki(turtle)
+    
     rescue => e
-        log(:error, "Error on fetch_and_load for #{feed_url}:#{e}")
+      log(:error, "Error on convert_from_url for #{feed_url}:#{e}")
+  end
+end
+
+def put_data_on_fuseki(data)
+  begin
+    log(:info, "Loading data in to semantic repository")
+
+    host = 'localhost'
+    port = '3030'
+    path = '/articles/data?default'
+
+    headers = {}
+    headers["Content-Type"] = "text/turtle;charset=utf-8;charset=utf-8"
+
+    request = Net::HTTP::Post.new(path)
+    request.initialize_http_header(headers)
+    request.body = data
+    response = Net::HTTP.new(host, port).start {|http| http.request(request) }
+
+    if response.kind_of? Net::HTTPSuccess
+      log(:info, "Data loaded successfully.")
+    else
+      log(:error, "Failed to load data: #{response.code}")
     end
+
+    rescue => e
+    log(:error, "Error on fetch_and_load for requested data: #{e}")
+  end
 end
 
 feeds_urls = []
@@ -44,5 +53,5 @@ feeds_urls.push(URI('http://opendataresearch.org/rss'))
 feeds_urls.push(URI('http://opendataresearch.org/rss/frontpage'))
 
 feeds_urls.each do |feed_url|
-    fetch_and_load_feed(feed_url)
+  fetch_and_load_feed(feed_url)
 end

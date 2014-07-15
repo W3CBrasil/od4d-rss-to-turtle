@@ -6,13 +6,13 @@ describe Article do
   describe "#to_resource" do
     context "given an article" do
       let(:article) { Article.new("http://the/link", {
-          :title => "the title",
-          :description => "The site of the/link",
-          :language => "en-US",
-          :author => "Yasodara Cordova",
-          :datePublished  => DateTime.new(2014,6,30,18,20,25, "+01:00"),
-          :articleBody => "Un conteudo mucho louco",
-          :articleSection => "sports" })
+        :title => "the title",
+        :description => "The site of the/link",
+        :language => "en-US",
+        :author => "Yasodara Cordova",
+        :datePublished  => DateTime.new(2014,6,30,18,20,25, "+01:00"),
+        :articleBody => "Un conteudo mucho louco",
+        :articleSection => "sports" })
       }
 
       context "when it is converted to a resource" do
@@ -32,8 +32,8 @@ describe Article do
 
     context "given an article without datePublished" do
       let (:article) { Article.new("http://the/link", {
-          :title => "the title",
-          :description => "The site of the/link"})
+        :title => "the title",
+        :description => "The site of the/link"})
       }
 
       context "when it is converted to a resource" do

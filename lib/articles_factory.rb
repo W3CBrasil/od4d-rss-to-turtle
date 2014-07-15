@@ -29,14 +29,13 @@ class ArticlesFactory
   end
 
   def get_category(rss_item)
+    categories = [] 
     if rss_item.respond_to?(:categories) then
-        categories = rss_item.categories.map do |cat|
-            cat.content
-        end
-        categories.join(",")
-    else
-        ""
+      rss_item.categories.map do |cat|
+        categories.push(cat.content)
+      end
     end
+    categories
   end
 
   def strip_prop(prop)

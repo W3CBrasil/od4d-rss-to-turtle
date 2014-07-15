@@ -14,8 +14,8 @@ class RSSToTurtle
     articles = articleFactory.create(rss)
 
     turtle_prefixes = {
-        rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-        schema: 'http://schema.org/'
+      rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+      schema: 'http://schema.org/'
     }
     turtle = Turtle.new(turtle_prefixes)
     articles.each do |article|

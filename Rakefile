@@ -33,7 +33,6 @@ end
 namespace :deploy do
 
   def deploy(server)
-    configure_deploy_ssh_key(server)
     cron_job = "*/30 * * * * sh -c '. ~/.bashrc && fetch-and-load-articles' >> /var/log/od4d/fetch-and-load-articles.log 2>&1"
     command = <<-eos
       cd /tmp
@@ -44,8 +43,14 @@ namespace :deploy do
       . ~/.bashrc && fetch-and-load-articles
     eos
 
+    verify_package_exist
+    configure_deploy_ssh_key(server)
     sh "scp output/rss-to-turtle*.gem od4d@#{server}:/tmp"
     sh "ssh od4d@#{server} \"#{command}\""
+  end
+
+  def verify_package_exist
+    raise "Gem file not found. Please run 'rake gem:build' to generate gem file." if Dir.glob('output/rss-to-turtle*.gem').empty?
   end
 
   def configure_deploy_ssh_key(server)

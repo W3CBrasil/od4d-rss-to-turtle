@@ -21,10 +21,12 @@ class FusekiUtils
         Logger.log(:info, "Data loaded successfully.")
       else
         Logger.log(:error, "Failed to load data: #{response.code}")
+        Logger.log(:error, "Response body: #{response.body}")
       end
 
     rescue => e
       Logger.log(:error, "Error on fetch_and_load for requested data: #{e}")
+      raise e
     end
   end
 end

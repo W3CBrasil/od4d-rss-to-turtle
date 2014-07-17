@@ -10,9 +10,9 @@ def fetch_and_load_feed(feed_url)
     Logger.log(:info, "Converting rss #{feed_url} to turtle")
     turtle = RSSToTurtle.convert_from_url(feed_url)
     FusekiUtils.put(turtle)
-
   rescue => e
     Logger.log(:error, "Error on convert_from_url for #{feed_url}:#{e}")
+    Logger.log(:error, "Backtrace #{e.backtrace}")
   end
 end
 

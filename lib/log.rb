@@ -1,3 +1,4 @@
+require 'time'
 
 class Logger
   def self.log(type, message)

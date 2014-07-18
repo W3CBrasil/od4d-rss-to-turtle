@@ -156,7 +156,7 @@ describe ArticlesFactory do
       article = articlesFactory.create(rss)[0]
 
       it "should set the article title" do
-        expect(article.title).to eq("Lasting Impacts \u0097 How IDRC-funded research has improved lives in the developing world")
+        expect(article.title).to eq("Lasting Impacts  How IDRC-funded research has improved lives in the developing world")
       end
 
       it 'should set the article url' do
@@ -169,6 +169,42 @@ describe ArticlesFactory do
 
       it 'should set the article datePublished' do
         expect(article.datePublished).to eq(DateTime.new(2011,7,28,18,21,06,'+00:00'))
+      end
+
+    end
+
+  end
+
+  context "given a valid rss with invalid characters and a html encoded character" do
+
+    rss_string = <<-eos
+        <rss version="2.0">
+          <channel>
+            <title>The tile</title>
+            <link>http://bla</link>
+            <description>The description</description>
+            <item>
+              <link>http://bla2</link>
+              <title>Lasting Impacts &amp;#151; How IDRC-funded research has improved lives in the developing world</title>
+              <description>This is a string with an html encoded character &mdash; It should be decode</description>
+            </item>
+          </channel>
+        </rss>
+      eos
+
+    rss = RSS::Parser.parse(rss_string)
+
+    context "when creating an article from rss" do
+
+      articlesFactory = ArticlesFactory.new
+      article = articlesFactory.create(rss)[0]
+
+      it 'should not have invalid characters' do
+        expect(article.title).to eq('Lasting Impacts  How IDRC-funded research has improved lives in the developing world')
+      end
+
+      it 'should decode the html encoded character' do
+        expect(article.description).to eq("This is a string with an html encoded character \u{2014} It should be decode")
       end
 
     end

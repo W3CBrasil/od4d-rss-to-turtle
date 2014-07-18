@@ -31,6 +31,12 @@ describe ArticlesFactory do
 
       expect(articles.count).to eq(2)
     end
+
+    it "should set header properties into articles" do
+      articlesFactory = ArticlesFactory.new
+      articles = articlesFactory.create(rss)
+      expect(articles[0].publisher).to eq("http://bla")
+    end
   end
 
   context "given a valid rss version 2.0 with one item" do

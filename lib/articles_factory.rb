@@ -6,6 +6,7 @@ class ArticlesFactory
     articles = []
     rss.items.map do |item|
       article = Article.new(strip_prop(item.link))
+      gather_header_properties(article, rss)
       gather_required_properties(article, item)
       gather_optional_properties(article, item, rss.rss_version)
       articles.push(article)
@@ -14,6 +15,10 @@ class ArticlesFactory
   end
 
   private
+  def gather_header_properties(article, rss)
+    uri = URI(rss.channel.link)
+    article.publisher = "#{uri.scheme}://#{uri.host}"
+  end
 
   def gather_required_properties(article, rss_item)
     article.title = strip_html(strip_prop(rss_item.title))

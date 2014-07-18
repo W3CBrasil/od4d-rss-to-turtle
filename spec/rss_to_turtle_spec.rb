@@ -21,7 +21,7 @@ describe RSSToTurtle do
         </rss>'}
 
     it "should convert rss to turtle" do
-        expect(RSSToTurtle.convert(rss_string)).to be == "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix schema: <http://schema.org/> .\n\n<http://bla2> a schema:Article;\n   schema:headline \"Legal Justification For Snooping: Statement\";\n   schema:url <http://bla2> .\n\n<http://bla3> a schema:Article;\n   schema:headline \"Marco Civil: A World First Digital Bill of Rights\";\n   schema:url <http://bla3> .\n"
+        expect(RSSToTurtle.convert(rss_string)).to be == "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix schema: <http://schema.org/> .\n\n<http://bla2> a schema:Article;\n   schema:headline \"Legal Justification For Snooping: Statement\";\n   schema:publisher <http://bla>;\n   schema:url <http://bla2> .\n\n<http://bla3> a schema:Article;\n   schema:headline \"Marco Civil: A World First Digital Bill of Rights\";\n   schema:publisher <http://bla>;\n   schema:url <http://bla3> .\n"
     end
 
     let(:url) {'http://webfoundation.org/feed/'}

@@ -41,6 +41,7 @@ namespace :deploy do
       crontab -l | grep -v fetch-and-load-articles | { cat; echo \\"#{cron_job}\\"; } | crontab -
       rm rss-to-turtle*.gem
       . ~/.bashrc && fetch-and-load-articles
+      . ~/.bashrc && insert_static_datasets
     eos
 
     verify_package_exist

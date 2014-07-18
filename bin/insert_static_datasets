@@ -2,6 +2,7 @@
 
 require 'log'
 require 'fuseki_utils'
+require 'assets'
 
 def insert_file_into_fuseki(filename)
   begin
@@ -16,12 +17,14 @@ def insert_file_into_fuseki(filename)
   end
 end
 
-Logger.log(:info, "Loading static datasets") 
-
-base_path = File.dirname(__FILE__)
-path = "static-datasets"
-Dir["#{base_path}/#{path}/*.ttl"].each do |filename| 
-  Logger.log(:info, "Inserting #{filename} dataset into fuseki")
-  insert_file_into_fuseki(filename)
-  Logger.log(:info, "Done inserting #{filename} dataset into fuseki")
+path = Assets.static_datasets
+Logger.log(:info, "Loading static datasets from #{path}") 
+begin
+  Dir["#{path}/*.ttl"].each do |filename| 
+    Logger.log(:info, "Inserting #{filename} dataset into fuseki")
+    insert_file_into_fuseki(filename)
+    Logger.log(:info, "Done inserting #{filename} dataset into fuseki")
+  end
+rescue => e
+  Logger.log(:error, e)
 end

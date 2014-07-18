@@ -11,7 +11,7 @@
     schema:name        "Open Data in Developing Countries";
     schema:url         <http://www.opendataresearch.org/emergingimpacts>;
     schema:logo        "oddc.png";
-    schema:description "Building a research network and conducting in-depth research to understand the supply and use of open data worldwide. Building common methods for open data assessment, and coordinating the Open Data Barometer.". 
+    schema:description "Building a research network and conducting in-depth research to understand the supply and use of open data worldwide. Building common methods for open data assessment, and coordinating the Open Data Barometer.".
 
 <http://www.idatosabiertos.org/> a schema:Organization;
     schema:name        "Iniciativa Latinoamericana por los Dados Abiertos";
@@ -22,5 +22,5 @@
 <http://www.webfoundation.org/projects/open-data-lab/> a schema:Organization;
     schema:name "World Wide Web Foundation";
     schema:url <http://www.webfoundation.org/projects/open-data-lab/>;
-    schema:logo "foundation.jpg";
+    schema:logo "foundation.png";
     schema:description "Building sustainable capacity to use open data through local and regional training, action, innovation, incubation and research.".

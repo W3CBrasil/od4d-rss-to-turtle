@@ -1,25 +1,25 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix schema: <http://schema.org/> .
 
-<http://www.caribbeanopeninstitute.org/> a schema:Organization;
+<http://caribbeanopeninstitute.org/> a schema:Organization;
     schema:name        "The Caribbean Open Institute";
     schema:url         <http://www.caribbeanopeninstitute.org/>;
     schema:logo        "caribbean_institute.png";
     schema:description """Facilitating open development approaches to inclusion, participation and innovation in the Caribbean, using open data as a catalyst. Hosts of the Developing the Caribbean Open Data Conference & Codesprint.""".
 
-<http://www.opendataresearch.org/emergingimpacts/> a schema:Organization;
+<http://opendataresearch.org/emergingimpacts/> a schema:Organization;
     schema:name        "Open Data in Developing Countries";
     schema:url         <http://www.opendataresearch.org/emergingimpacts>;
     schema:logo        "oddc.png";
     schema:description "Building a research network and conducting in-depth research to understand the supply and use of open data worldwide. Building common methods for open data assessment, and coordinating the Open Data Barometer.".
 
-<http://www.idatosabiertos.org/> a schema:Organization;
+<http://idatosabiertos.org/> a schema:Organization;
     schema:name        "Iniciativa Latinoamericana por los Dados Abiertos";
     schema:url <http://www.idatosabiertos.org>;
     schema:logo "ilda.png";
     schema:description "Research and facilitating action on open data in Latin America. Conducting sectoral scoping to understand the potential of open data in specific domains. Facilitating dialogue between governments, civil society and researchers.".
 
-<http://www.webfoundation.org/projects/open-data-lab/> a schema:Organization;
+<http://webfoundation.org/projects/open-data-lab/> a schema:Organization;
     schema:name "World Wide Web Foundation";
     schema:url <http://www.webfoundation.org/projects/open-data-lab/>;
     schema:logo "foundation.png";

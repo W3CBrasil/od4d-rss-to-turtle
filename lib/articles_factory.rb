@@ -61,7 +61,7 @@ class ArticlesFactory
   end
 
   def remove_invalid_characters(str)
-    str.gsub(/[\u{0097}]/, "")
+    str.gsub(/[\u{0096}\u{0097}]/, "")
   end
 
   def get_date(date, rss_version)

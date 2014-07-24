@@ -63,24 +63,29 @@ namespace :deploy do
     sh command if ENV['CI']
   end
 
+  def get_server_from_env_variable(name)
+    fail "Please set the server address using the environment variable #{name}" if ENV[name].to_s.empty?
+    ENV[name]
+  end
+
   desc "Deploy to localhost"
   task :local => "gem:install"
 
-  desc "Deploy to development"
-  task :development do
+  desc "Deploy to test environment"
+  task :test do
     deploy("app-server.dev")
   end
 
-  desc "Deploy to staging"
+  desc "Deploy to staging environment"
   task :staging do
-    fail "Please set the server address using the environment variable OD4D_STAGING_SERVER" if ENV['OD4D_STAGING_SERVER'].to_s.empty?
-    deploy("#{ENV['OD4D_STAGING_SERVER']}")
+    server = get_server_from_env_variable('OD4D_STAGING_SERVER')
+    deploy(server)
   end
 
-  desc "Deploy to production"
+  desc "Deploy to production environment"
   task :production do
-    fail "Please set the server address using the environment variable OD4D_PROD_SERVER" if ENV['OD4D_PROD_SERVER'].to_s.empty?
-    deploy("#{ENV['OD4D_PROD_SERVER']}")
+    server = get_server_from_env_variable('OD4D_PROD_SERVER')
+    deploy(server)
   end
 
 end

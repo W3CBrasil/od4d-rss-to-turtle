@@ -12,16 +12,29 @@ describe RSSToTurtle do
             <item>
               <link>http://bla2</link>
               <title>Legal Justification For Snooping: Statement</title>
+              <description>
+                <![CDATA[
+                  <p>any</p>
+                ]]>
+              </description>
             </item>
             <item>
               <link>http://bla3</link>
               <title>Marco Civil: A World First Digital Bill of Rights</title>
+              <description>
+                <![CDATA[
+                  <p>any</p>
+                ]]>
+              </description>
             </item>
           </channel>
         </rss>'}
+      turtle_string =  <<-eos
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix schema: <http://schema.org/> .\n\n<http://bla2> a schema:Article;\n   schema:description \"any\";\n   schema:headline \"Legal Justification For Snooping: Statement\";\n   schema:publisher <http://bla>;\n   schema:url <http://bla2> .\n\n<http://bla3> a schema:Article;\n   schema:description \"any\";\n   schema:headline \"Marco Civil: A World First Digital Bill of Rights\";\n   schema:publisher <http://bla>;\n   schema:url <http://bla3> .
+      eos
 
     it "should convert rss to turtle" do
-        expect(RSSToTurtle.convert(rss_string)).to be == "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix schema: <http://schema.org/> .\n\n<http://bla2> a schema:Article;\n   schema:headline \"Legal Justification For Snooping: Statement\";\n   schema:publisher <http://bla>;\n   schema:url <http://bla2> .\n\n<http://bla3> a schema:Article;\n   schema:headline \"Marco Civil: A World First Digital Bill of Rights\";\n   schema:publisher <http://bla>;\n   schema:url <http://bla3> .\n"
+        expect(RSSToTurtle.convert(rss_string)).to be == turtle_string
     end
 
     let(:url) {'http://webfoundation.org/feed/'}

@@ -1,5 +1,6 @@
 require 'article'
 require 'htmlentities'
+require 'log'
 
 class ArticlesFactory
   def create(rss)
@@ -9,7 +10,11 @@ class ArticlesFactory
       gather_header_properties(article, rss)
       gather_required_properties(article, item)
       gather_optional_properties(article, item, rss.rss_version)
-      articles.push(article)
+      if article.valid?
+        articles.push(article)
+      else
+        Logger.log(:info, "Ignoring malformed RSS item:\n#{item.to_s}")
+      end
     end
     articles
   end

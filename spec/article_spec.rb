@@ -40,6 +40,77 @@ describe Article do
         it { expect(article.to_resource).to_not respond_to :datePublished}
       end
     end
+
+  end
+
+  describe "#contructor" do
+    context "given a nil url" do
+      it { expect { Article.new(nil, {}) }.to raise_error }
+    end
+  end
+
+  describe "#valid?" do
+    context "called on an article with all required fields" do 
+      context "but with nil title" do
+        
+        let(:article) { Article.new("http://any/link", {
+          :publisher => "any",
+          :description => "any description"})
+        }
+
+        it { expect(article.valid?).to be false}
+      end
+      context "but with empty title" do
+        
+        let(:article) { Article.new("http://any/link", {
+          :title => "",
+          :publisher => "any",
+          :description => "any description"})
+        }
+
+        it { expect(article.valid?).to be false}
+      end
+    
+      context "but with nil publisher" do
+        let(:article) { Article.new("http://any/link", {
+          :title => "any",
+          :description => "any description"})
+        }
+
+        it { expect(article.valid?).to be false}
+      end
+    
+      context "but with empty publisher" do
+        let(:article) { Article.new("http://any/link", {
+          :title => "any",
+          :publisher => "",
+          :description => "any description"})
+        }
+
+        it { expect(article.valid?).to be false}
+      end
+    
+      context "but with nil description" do
+        let(:article) { Article.new("http://any/link", {
+          :title => "any",
+          :publisher => "any"})
+        }
+
+        it { expect(article.valid?).to be false}
+      end
+    
+      context "but with empty description" do
+        let(:article) { Article.new("http://any/link", {
+          :title => "any",
+          :publisher => "any",
+          :description => ""})
+        }
+
+        it { expect(article.valid?).to be false}
+      end
+
+    end
+
   end
 
 end

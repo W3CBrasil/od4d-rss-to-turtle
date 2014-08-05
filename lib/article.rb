@@ -38,4 +38,13 @@ class Article
     add_optional_to_resource(res, "publisher", @publisher)
     res
   end
+
+  def valid?
+    !(@title.nil? ||
+    @title.empty? ||
+    @publisher.nil? ||
+    @publisher.empty? ||
+    @description.nil? ||
+    @description.empty?)
+  end
 end

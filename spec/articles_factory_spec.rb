@@ -1,4 +1,5 @@
 require 'rss'
+require 'rss/maker'
 require 'articles_factory'
 
 describe ArticlesFactory do
@@ -14,10 +15,20 @@ describe ArticlesFactory do
             <item>
               <link>http://bla2</link>
               <title>Legal Justification For Snooping: Statement</title>
+              <description>
+                <![CDATA[
+                  <p>any</p>
+                ]]>
+              </description>
             </item>
             <item>
               <link>http://bla3</link>
               <title>Marco Civil: A World First Digital Bill of Rights</title>
+              <description>
+                <![CDATA[
+                  <p>any</p>
+                ]]>
+              </description>
             </item>
           </channel>
         </rss>
@@ -209,6 +220,38 @@ describe ArticlesFactory do
 
     end
 
+  end
+
+  context "given an rss item without description" do
+    it "should not create an article" do
+      articlesFactory = ArticlesFactory.new
+      rss = RSS::Maker.make("2.0") do |m|
+        m.channel.link  = "http://any.com/"
+        m.channel.description = 'any'
+        m.channel.title = 'any'
+        m.items.new_item do |item|
+          item.title = "any"
+        end
+      end
+      articles = articlesFactory.create(rss)
+      expect(articles.length).to be 0
+    end
+  end
+
+  context "given an rss item without title" do
+    it "should not create an article" do
+      articlesFactory = ArticlesFactory.new
+      rss = RSS::Maker.make("2.0") do |m|
+        m.channel.link  = "http://any.com/"
+        m.channel.description = 'any'
+        m.channel.title = 'any'
+        m.items.new_item do |item|
+          item.description = "any"
+        end
+      end
+      articles = articlesFactory.create(rss)
+      expect(articles.length).to be 0
+    end
   end
 
 end

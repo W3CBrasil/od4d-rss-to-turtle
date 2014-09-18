@@ -50,7 +50,7 @@ class ArticlesFactory
 
   def sanitize_prop(prop)
     str = prop.to_s
-    str = strip_html(str)
+    # str = strip_html(str)
     str = remove_invalid_characters(str)
     str.strip
   end

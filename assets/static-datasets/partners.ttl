@@ -19,12 +19,6 @@
     schema:logo "ilda.png";
     schema:description "Research and facilitating action on open data in Latin America. Conducting sectoral scoping to understand the potential of open data in specific domains. Facilitating dialogue between governments, civil society and researchers.".
 
-<http://webfoundation.org/projects/open-data-lab/> a schema:Organization;
-    schema:name "World Wide Web Foundation";
-    schema:url <http://webfoundation.org/projects/open-data-lab/>;
-    schema:logo "foundation.png";
-    schema:description "Building sustainable capacity to use open data through local and regional training, action, innovation, incubation and research.".
-
 <http://platform.od4d.org/> a schema:Organization;
     schema:name        "Open Data for Development";
     schema:url         <http://platform.od4d.org/>;

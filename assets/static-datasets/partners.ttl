@@ -20,7 +20,7 @@
     schema:description "Research and facilitating action on open data in Latin America. Conducting sectoral scoping to understand the potential of open data in specific domains. Facilitating dialogue between governments, civil society and researchers.".
 
 <http://platform.od4d.org/> a schema:Organization;
-    schema:name        "Open Data for Development";
+    schema:name        "OD4D Platform";
     schema:url         <http://platform.od4d.org/>;
     schema:logo        "logo.png";
     schema:description "The general objective of this research project is to contribute to the development of Open Data strategies leading to accountability, innovative services and effective public policies in strategic segments, thus promoting a more inclusive economy of knowledge in Latin America and the Caribbean. In order to achieve this, the project investigates the potential of Open Data in public policies on 3 fronts: transparency, new services, and equitable development.".

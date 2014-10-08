@@ -10,16 +10,23 @@ class ArticlesFactory
       gather_header_properties(article, rss)
       gather_required_properties(article, item)
       gather_optional_properties(article, item, rss.rss_version)
+      fill_language(article, rss.channel)
       if article.valid?
         articles.push(article)
-      else
-        Logger.log(:info, "Ignoring malformed RSS item:\n#{item.to_s}")
       end
     end
     articles
   end
 
   private
+
+  def fill_language(article, channel)
+    has_language = channel.class.method_defined? :language
+    has_dc_language = channel.class.method_defined? :dc_language
+    article.language = channel.language[0..1] if has_language && !channel.language.nil? && !channel.language.empty?
+    article.language = channel.dc_language[0..1] if has_dc_language && !channel.dc_language.nil? && !channel.dc_language.empty?
+  end
+
   def gather_header_properties(article, rss)
     uri = URI(rss.channel.link)
     article.publisher = "#{uri.scheme}://#{uri.host}"
@@ -35,7 +42,6 @@ class ArticlesFactory
     article.author = sanitize_prop(rss_item.dc_creator)
     article.articleBody = sanitize_prop(rss_item.content_encoded)
     article.articleSection = get_category(rss_item)
-    article.language = sanitize_prop(rss_item.dc_language)
   end
 
   def get_category(rss_item)

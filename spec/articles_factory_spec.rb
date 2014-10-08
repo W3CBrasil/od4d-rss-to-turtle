@@ -12,6 +12,7 @@ describe ArticlesFactory do
             <title>The tile</title>
             <link>http://bla</link>
             <description>The description</description>
+            <language>en-en</language>
             <item>
               <link>http://bla2</link>
               <title>Legal Justification For Snooping: Statement</title>
@@ -48,6 +49,12 @@ describe ArticlesFactory do
       articles = articlesFactory.create(rss)
       expect(articles[0].publisher).to eq("http://bla")
     end
+
+    it "should set language properties into articles" do
+      articlesFactory = ArticlesFactory.new
+      articles = articlesFactory.create(rss)
+      expect(articles[0].language).to eq("en")
+    end
   end
 
   context "given a valid rss version 2.0 with one item" do
@@ -58,6 +65,7 @@ describe ArticlesFactory do
             <title>The tile</title>
             <link>http://bla</link>
             <description>The description</description>
+            <language>en-gb</language>
             <item>
             <title>
                 Open Contracting Data Standard Draft Released for Comment
@@ -130,6 +138,9 @@ describe ArticlesFactory do
       it 'should set the article datePublished' do
         expect(article.datePublished).to eq(DateTime.new(2014,6,26,17,57,45,'+00:00'))
       end
+      it 'should set the article language' do
+        expect(article.language).to eq("en")
+      end
 
     end
 
@@ -141,6 +152,7 @@ describe ArticlesFactory do
         <channel rdf:about="http://web.idrc.ca/en/ev-1-201-1-DO_TOPIC.html?from=rss">
         <title>International Development Research Centre</title>
         <link>http://web.idrc.ca/en/ev-1-201-1-DO_TOPIC.html?from=rss</link>
+        <dc:language>en-ca</dc:language>
         <description>
           IDRC is a Canadian Crown corporation that works in close collaboration with researchers from the developing world in their search for the means to build healthier, more equitable, and more prosperous societies.
         </description>
@@ -180,6 +192,10 @@ describe ArticlesFactory do
 
       it 'should set the article datePublished' do
         expect(article.datePublished).to eq(DateTime.new(2011,7,28,18,21,06,'+00:00'))
+      end
+
+      it 'should set the article language' do
+        expect(article.language).to eq("en")
       end
 
     end

@@ -20,6 +20,7 @@ feeds_urls = []
 feeds_urls.push(URI('http://web.idrc.ca/ev_en.php?ID=1_201&ID2=DO_RSS&child=1'))
 feeds_urls.push(URI('http://opendataresearch.org/rss'))
 feeds_urls.push(URI('http://opendataresearch.org/rss/frontpage'))
+feeds_urls.push(URI('http://br.okfn.org/category/dados-abertos/feed/'))
 
 feeds_urls.each do |feed_url|
   fetch_and_load_feed(feed_url)

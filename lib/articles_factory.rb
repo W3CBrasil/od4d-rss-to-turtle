@@ -41,10 +41,15 @@ class ArticlesFactory
     article.datePublished = get_date(rss_item.date, rss_version)
     article.author = sanitize_prop(rss_item.dc_creator)
     article.articleBody = sanitize_prop(rss_item.content_encoded)
-    article.articleSection = get_category(rss_item)
+    article.articleSection = category_from rss_item
+    article.about = get_categories(rss_item)
   end
 
-  def get_category(rss_item)
+  def category_from(rss_item)
+    sanitize_prop rss_item.category if rss_item.respond_to?(:category)
+  end
+
+  def get_categories(rss_item)
     categories = []
     if rss_item.respond_to?(:categories) then
       rss_item.categories.map do |cat|

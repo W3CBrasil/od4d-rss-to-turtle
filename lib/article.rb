@@ -3,7 +3,7 @@ require 'resource'
 class Article
 
   attr_reader :url
-  attr_accessor :title, :description, :comment, :author, :datePublished, :articleBody, :articleSection, :language, :publisher
+  attr_accessor :title, :description, :comment, :author, :datePublished, :articleBody, :articleSection, :language, :publisher, :about
 
   def initialize(url, options={})
     raise "url can't be nil" if url.nil?
@@ -16,6 +16,7 @@ class Article
     @articleBody = options[:articleBody]
     @articleSection = options[:articleSection]
     @publisher = options[:publisher]
+    @about = options[:about]
   end
 
   alias_method :uri, :url
@@ -36,6 +37,7 @@ class Article
     add_optional_to_resource(res, "articleBody", @articleBody)
     add_optional_to_resource(res, "articleSection", @articleSection)
     add_optional_to_resource(res, "publisher", @publisher)
+    add_optional_to_resource(res, "about", @about)
     res
   end
 

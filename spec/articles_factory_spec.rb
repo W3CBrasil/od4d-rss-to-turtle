@@ -13,6 +13,7 @@ describe ArticlesFactory do
             <link>http://bla</link>
             <description>The description</description>
             <language>en-en</language>
+            <copyright>Copyright 2014, Company</copyright>
             <item>
               <link>http://bla2</link>
               <title>Legal Justification For Snooping: Statement</title>
@@ -21,6 +22,7 @@ describe ArticlesFactory do
                   <p>any</p>
                 ]]>
               </description>
+              <enclosure url="http://www.w3c.org/sample.mp3" length="105000" type="audio/mpeg" />
             </item>
             <item>
               <link>http://bla3</link>
@@ -30,6 +32,7 @@ describe ArticlesFactory do
                   <p>any</p>
                 ]]>
               </description>
+              <enclosure url="http://www.w3c.org/sample.mp3" length="105000" type="audio/mpeg" />
             </item>
           </channel>
         </rss>
@@ -55,6 +58,19 @@ describe ArticlesFactory do
       articles = articlesFactory.create(rss)
       expect(articles[0].language).to eq("en")
     end
+
+    it "should set enclosure properties into articles" do
+      articlesFactory = ArticlesFactory.new
+      articles = articlesFactory.create(rss)
+      expect(articles[0].enclosure.url).to eq("http://www.w3c.org/sample.mp3")
+    end
+
+    it "should set copyright properties into articles" do
+      articlesFactory = ArticlesFactory.new
+      articles = articlesFactory.create(rss)
+      expect(articles[0].copyright).to eq("Copyright 2014, Company")
+    end
+
   end
 
   context "given a valid rss version 2.0 with one item" do

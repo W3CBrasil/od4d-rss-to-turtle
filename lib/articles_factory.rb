@@ -29,6 +29,7 @@ class ArticlesFactory
 
   def gather_header_properties(article, rss)
     uri = URI(rss.channel.link)
+    @copyright = get_copyright(rss)
     article.publisher = "#{uri.scheme}://#{uri.host}"
   end
 
@@ -43,6 +44,16 @@ class ArticlesFactory
     article.articleBody = sanitize_prop(rss_item.content_encoded)
     article.articleSection = category_from rss_item
     article.about = get_categories(rss_item)
+    article.enclosure = get_enclosure(rss_item)
+    article.copyright = @copyright
+  end
+
+  def get_enclosure(rss_item)
+    rss_item.enclosure if rss_item.respond_to?(:enclosure)
+  end
+
+  def get_copyright(rss)
+    rss.channel.copyright if rss.channel.respond_to?(:copyright)
   end
 
   def category_from(rss_item)
